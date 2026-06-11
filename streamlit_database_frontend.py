@@ -76,7 +76,12 @@ for message in st.session_state["message_history"]:
 user_input = st.chat_input("Type here...")
 
 if user_input:
-    config = {"configurable": {"thread_id": st.session_state["thread_id"]}}
+    config = {
+        "configurable": {"thread_id": st.session_state["thread_id"]},
+        # LangSmith: metadata.thread_id groups traces under the Threads tab
+        "metadata": {"thread_id": st.session_state["thread_id"]},
+        "run_name": "chat-turn",
+    }
 
     with st.chat_message("user"):
         st.markdown(user_input)
